@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
+    function num(v, lo, hi) { return (v is int || v is float) && v >= lo && v <= hi; }
+
+    function validGoals(d) {
+      return num(d.calorieTarget, 1, 10000) && num(d.proteinTarget, 1, 600)
+          && num(d.carbohydrateTarget, 1, 1500) && num(d.fatTarget, 1, 500);
+    }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid)
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() > 0 && request.resource.data.displayName.size() <= 100
+        && request.resource.data.createdAt == request.time
+        && validGoals(request.resource.data.nutritionGoals);
+      allow update: if isOwner(uid)
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() > 0 && request.resource.data.displayName.size() <= 100
+        && validGoals(request.resource.data.nutritionGoals);
+      allow delete: if false;
+
+      match /meals/{mealId} {
+        function validMeal(d) {
+          return d.foodName is string && d.foodName.size() > 0 && d.foodName.size() <= 120
+            && d.mealType in ['breakfast', 'lunch', 'dinner', 'snack']
+            && num(d.portionGrams, 1, 5000) && num(d.calories, 0, 20000)
+            && num(d.protein, 0, 2000) && num(d.carbohydrates, 0, 3000) && num(d.fat, 0, 2000)
+            && d.eatenAt is timestamp;
+        }
+        allow read: if isOwner(uid);
+        allow create: if isOwner(uid) && validMeal(request.resource.data)
+          && request.resource.data.createdAt == request.time;
+        allow update: if isOwner(uid) && validMeal(request.resource.data)
+          && request.resource.data.createdAt == resource.data.createdAt;
+        allow delete: if isOwner(uid);
+      }
+
+      match /goals/{goalId} {
+        allow read: if isOwner(uid);
+        allow create, update: if isOwner(uid) && validGoals(request.resource.data)
+          && request.resource.data.updatedAt == request.time;
+        allow delete: if isOwner(uid);
+      }
+    }
+
+    // Everything else is closed.
+    match /{document=**} { allow read, write: if false; }
+  }
+}
