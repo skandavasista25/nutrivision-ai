@@ -12,6 +12,7 @@ import Diary from "./pages/Diary";
 import Alternatives from "./pages/Alternatives";
 import Goals from "./pages/Goals";
 import Profile from "./pages/Profile";
+import NutritionCoach from "./pages/NutritionCoach";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
               <Route path="alternatives" element={<Alternatives />} />
               <Route path="goals" element={<Goals />} />
               <Route path="profile" element={<Profile />} />
+              <Route path="nutrition-coach" element={<NutritionCoach />} />
             </Route>
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
