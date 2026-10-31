@@ -1,0 +1,36 @@
+/* Styles for the Nutrition Coach page. Colours adapt to light or dark themes. */
+.coach-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 1rem; align-items: start; margin-top: 1rem; }
+@media (max-width: 900px) { .coach-grid { grid-template-columns: 1fr; } }
+.coach-section { margin-top: 1rem; }
+.coach-controls { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin: .75rem 0; }
+.coach-search { position: relative; flex: 1; min-width: 200px; }
+.coach-search svg { position: absolute; left: .75rem; top: 50%; transform: translateY(-50%); opacity: .6; pointer-events: none; }
+.coach-search input { padding-left: 2.4rem; }
+.coach-label { font-size: .85rem; opacity: .7; margin: .5rem 0 .25rem; }
+.coach-chip { background: transparent; color: inherit; font: inherit; font-size: .88rem; cursor: pointer; padding: .3rem .8rem; border-radius: 99px;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent); }
+.coach-chip:hover { background: color-mix(in srgb, #2f8f5b 15%, transparent); }
+.coach-chip.on { background: #2f8f5b; border-color: #2f8f5b; color: #fff; }
+.coach-chip.avoid.on { background: #b3382c; border-color: #b3382c; }
+.chip-row { display: flex; gap: .4rem; flex-wrap: wrap; }
+.recipe-item { display: block; width: 100%; text-align: left; font: inherit; color: inherit; background: transparent; cursor: pointer; padding: .8rem .9rem; margin-bottom: .5rem;
+  border-radius: 12px; border: 1px solid color-mix(in srgb, currentColor 18%, transparent); }
+.recipe-item:hover { background: color-mix(in srgb, #2f8f5b 10%, transparent); }
+.recipe-item.sel { border-color: #2f8f5b; box-shadow: 0 0 0 2px color-mix(in srgb, #2f8f5b 40%, transparent); }
+.recipe-item b { display: block; }
+.recipe-meta { display: flex; gap: .75rem; flex-wrap: wrap; font-size: .85rem; opacity: .75; margin-top: .2rem; }
+.recipe-meta span { display: inline-flex; align-items: center; gap: .25rem; }
+.fit-why { font-size: .85rem; color: #2f8f5b; margin-top: .25rem; }
+.badge { font-size: .75rem; padding: .1rem .55rem; border-radius: 99px; background: color-mix(in srgb, #2f8f5b 22%, transparent); }
+.badge.warn { background: color-mix(in srgb, #d29a2b 30%, transparent); }
+.scaler { display: inline-flex; align-items: center; gap: .5rem; }
+.scaler button { width: 2rem; height: 2rem; border-radius: 50%; cursor: pointer; background: transparent; color: inherit; display: grid; place-items: center;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent); }
+.scaler button:disabled { opacity: .35; cursor: not-allowed; }
+.ing-list, .step-list { margin: .5rem 0 1rem; padding-left: 1.2rem; }
+.ing-list li, .step-list li { margin-bottom: .35rem; }
+.step-list li::marker { font-weight: 700; color: #2f8f5b; }
+.log-row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: flex-end; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent); }
+.log-row .field { margin: 0; min-width: 120px; }
+.note-box { font-size: .9rem; padding: .6rem .8rem; border-radius: 10px; margin: .5rem 0; background: color-mix(in srgb, currentColor 7%, transparent); }
+.tight-h { display: flex; align-items: center; gap: .5rem; }
