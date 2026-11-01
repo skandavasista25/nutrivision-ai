@@ -1,4 +1,3 @@
-
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -9,6 +8,7 @@ import {
   UserRound,
   LogOut,
   BrainCircuit,
+  CalendarDays,
 } from "lucide-react";
 
 import { logout } from "../services/authService";
@@ -19,6 +19,7 @@ const NAV = [
   { to: "/scanner", label: "Scanner", icon: ScanLine },
   { to: "/diary", label: "Diary", icon: BookOpen },
   { to: "/nutrition-coach", label: "AI Coach", icon: BrainCircuit },
+  { to: "/planner", label: "Planner", icon: CalendarDays },
   { to: "/alternatives", label: "Alternatives", icon: Leaf },
   { to: "/goals", label: "Goals", icon: Target },
   { to: "/profile", label: "Profile", icon: UserRound },

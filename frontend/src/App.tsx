@@ -9,35 +9,41 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
 import Scanner from "./pages/Scanner";
 import Diary from "./pages/Diary";
+import NutritionCoach from "./pages/NutritionCoach";
+import Planner from "./pages/Planner";
 import Alternatives from "./pages/Alternatives";
 import Goals from "./pages/Goals";
 import Profile from "./pages/Profile";
-import NutritionCoach from "./pages/NutritionCoach";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <AuthProvider><ToastProvider>
-        <Routes>
-          <Route element={<PublicRoute />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-          </Route>
-          <Route element={<ProtectedRoute />}>
-            <Route element={<Layout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="scanner" element={<Scanner />} />
-              <Route path="diary" element={<Diary />} />
-              <Route path="alternatives" element={<Alternatives />} />
-              <Route path="goals" element={<Goals />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="nutrition-coach" element={<NutritionCoach />} />
+      <AuthProvider>
+        <ToastProvider>
+          <Routes>
+            <Route element={<PublicRoute />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
             </Route>
-          </Route>
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </ToastProvider></AuthProvider>
+
+            <Route element={<ProtectedRoute />}>
+              <Route element={<Layout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="scanner" element={<Scanner />} />
+                <Route path="diary" element={<Diary />} />
+                <Route path="nutrition-coach" element={<NutritionCoach />} />
+                <Route path="planner" element={<Planner />} />
+                <Route path="alternatives" element={<Alternatives />} />
+                <Route path="goals" element={<Goals />} />
+                <Route path="profile" element={<Profile />} />
+              </Route>
+            </Route>
+
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </ToastProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

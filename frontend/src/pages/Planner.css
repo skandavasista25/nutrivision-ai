@@ -1,0 +1,25 @@
+
+
+/* Styles for the Meal Planner page. Colours adapt to light or dark themes. */
+.plan-section { margin-top: 1rem; }
+.plan-settings { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-top: .75rem; }
+@media (max-width: 700px) { .plan-settings { grid-template-columns: 1fr; } }
+.plan-settings .field { margin: 0; }
+.plan-actions { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1rem; }
+.plan-tabs { display: flex; gap: .4rem; overflow-x: auto; padding-bottom: .25rem; margin-bottom: .75rem; }
+.plan-tab { flex: none; background: transparent; color: inherit; font: inherit; font-size: .9rem; cursor: pointer; padding: .4rem .85rem; border-radius: 12px;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent); text-align: center; line-height: 1.25; }
+.plan-tab.on { background: #2f8f5b; border-color: #2f8f5b; color: #fff; }
+.plan-tab small { display: block; opacity: .75; }
+.plan-slot { display: flex; gap: .75rem; align-items: flex-start; padding: .85rem 0; border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent); }
+.plan-slot.eaten { opacity: .65; }
+.slot-actions { display: flex; gap: .35rem; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.slot-actions select { width: auto; padding: .35rem .5rem; }
+.plan-slot details { margin-top: .4rem; font-size: .92rem; }
+.plan-slot summary { cursor: pointer; color: #2f8f5b; }
+.plan-slot ul, .plan-slot ol { margin: .4rem 0; padding-left: 1.2rem; }
+.plan-day-sum { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; font-size: .92rem; margin: .5rem 0 .25rem; }
+.shop-group h3 { margin: 1rem 0 .25rem; font-size: 1rem; }
+.shop-group ul { margin: 0; padding-left: 1.2rem; columns: 2; column-gap: 2rem; }
+@media (max-width: 700px) { .shop-group ul { columns: 1; } }
+.shop-group li { margin-bottom: .2rem; break-inside: avoid; }
