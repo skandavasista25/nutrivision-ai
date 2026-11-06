@@ -81,7 +81,7 @@ function buildDay(date: string, s: PlanSettings, prev: DayPlan | undefined, use:
     let best: { r: Recipe; k: number; l: number } | null = null;
     for (const r of candidates(s, t)) {
       const k = nearestStep(clamp(st.calories / r.perServing.calories, 0.5, 2.5));
-      const l = loss(scale(r.perServing, k), st) + (use.get(r.id) ?? 0) * 1.2 + (dayUsed.has(r.id) ? 6 : 0) + rng() * 0.4;
+      const l = loss(scale(r.perServing, k), st) + (use.get(r.id) ?? 0) * 1.2 + (dayUsed.has(r.id) ? 6 : 0) + (r.tags.includes("south indian") ? -0.6 : 0) + rng() * 0.4;
       if (!best || l < best.l) best = { r, k, l };
     }
     if (!best) continue;
@@ -132,7 +132,7 @@ export function swapSlot(plan: Plan, dayIdx: number, slotIdx: number, s: PlanSet
   for (const r of candidates(s, slot.mealType)) {
     if (r.id === slot.recipeId) continue;
     const k = nearestStep(clamp(curM.calories / r.perServing.calories, 0.5, 2.5));
-    const l = loss(scale(r.perServing, k), curM) + (use.get(r.id) ?? 0) * 1.2 + (used.has(r.id) ? 6 : 0) + rng() * 0.6;
+    const l = loss(scale(r.perServing, k), curM) + (use.get(r.id) ?? 0) * 1.2 + (used.has(r.id) ? 6 : 0) + (r.tags.includes("south indian") ? -0.6 : 0) + rng() * 0.6;
     if (!best || l < best.l) best = { r, k, l };
   }
   if (!best) return plan;
@@ -141,9 +141,11 @@ export function swapSlot(plan: Plan, dayIdx: number, slotIdx: number, s: PlanSet
 }
 
 const GROUPS: { title: string; words: string[] }[] = [
-  { title: "Vegetables and fruit", words: ["onion", "tomato", "spinach", "carrot", "peas", "garlic", "ginger", "chilli", "lemon", "lime", "banana", "cucumber", "coriander", "vegetables", "beans", "broccoli", "curry leaves", "spring onion"] },
-  { title: "Protein and dairy", words: ["paneer", "eggs", "chicken", "salmon", "tofu", "yogurt", "sprouts"] },
+  { title: "Vegetables and fruit", words: ["onion", "tomato", "spinach", "carrot", "peas", "garlic", "ginger", "chilli", "lemon", "lime", "banana", "cucumber", "coriander", "vegetables", "beans", "broccoli", "curry leaves", "spring onion", "cabbage", "potato", "keerai", "greens", "coconut", "mint", "drumstick"] },
+  { title: "Protein and dairy", words: ["paneer", "egg", "chicken", "fish", "tofu", "yogurt", "curd", "milk", "sprouts"] },
 ];
+/** "onion, chopped" -> "onion", "rice (cooked until soft)" -> "rice", "raw rice" -> "rice". */
+const baseName = (name: string) => name.split("(")[0].split(",")[0].trim().replace(/^raw /i, "");
 const groupOf = (name: string) => GROUPS.find((g) => g.words.some((w) => name.toLowerCase().includes(w)))?.title ?? "Pantry and spices";
 
 /** Combined shopping list for meals from `fromDate` on that haven't been eaten yet. */
@@ -157,10 +159,11 @@ export function shoppingList(plan: Plan, fromDate: string): { title: string; ite
       if (!r || slot.eaten) continue;
       const f = slot.servings / r.baseServings;
       for (const i of r.ingredients) {
-        if (i.amount <= 0) { taste.add(i.name); continue; }
-        const key = `${i.unit}|${i.name}`;
+        if (i.amount <= 0) { taste.add(baseName(i.name)); continue; }
+        const nm = baseName(i.name);
+        const key = `${i.unit}|${nm}`;
         const cur = sums.get(key);
-        sums.set(key, { amount: (cur?.amount ?? 0) + i.amount * f, unit: i.unit, name: i.name });
+        sums.set(key, { amount: (cur?.amount ?? 0) + i.amount * f, unit: i.unit, name: nm });
       }
     }
   }

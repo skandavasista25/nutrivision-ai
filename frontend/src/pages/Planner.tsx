@@ -42,6 +42,13 @@ export default function Planner() {
     getUserProfile(user.uid).then((p) => { if (p?.preferences.diet === "vegetarian") setDiet("veg"); }).catch(() => undefined);
   }, [user, diet, setDiet]);
 
+  // Recipes change over time. Clear a saved plan that points to recipes that no longer exist.
+  useEffect(() => {
+    if (plan && plan.days.some((d) => d.slots.some((s) => !recipeById(s.recipeId)))) {
+      setPlan(null); toast("The recipe list was updated, so your old plan was cleared. Build a new one.", "error");
+    }
+  }, [plan, setPlan, toast]);
+
   const settings: PlanSettings = useMemo(
     () => ({ goals, diet: diet ?? "any", avoid, mealsPerDay, maxMinutes }), [goals, diet, avoid, mealsPerDay, maxMinutes]);
   const target = targetsFrom(goals);
@@ -163,6 +170,7 @@ export default function Planner() {
                 <ProgressBar value={total.calories} max={target.calories} label="Day calories vs target" />
                 {isToday && <p className="small muted">Today's total = {consumed.calories} kcal already in your diary + {Math.round(planned?.calories ?? 0)} kcal planned.</p>}
                 {Math.abs(dev) > 10 && <div className="alert info" style={{ marginTop: ".5rem" }}>This day is about {Math.abs(dev)}% {dev < 0 ? "under" : "over"} your calorie target. {dev < 0 ? "Add a side such as roti or rice, use 4 meals a day, or relax the filters." : "Reduce a portion or swap a meal."}</div>}
+                {total.protein < target.protein * 0.8 && <div className="alert info" style={{ marginTop: ".5rem" }}>Protein is about {Math.round(target.protein - total.protein)} g under your target. South Indian plates are often rich in carbs and lighter on protein. Add {(diet ?? "any") === "veg" ? "curd, paneer, dal, sprouts or sundal" : (diet ?? "any") === "egg" ? "curd, eggs, paneer, dal or sprouts" : "curd, eggs, chicken, fish, dal or sprouts"}, or choose higher-protein meals with the swap button.</div>}
                 {missing > 0 && <div className="alert info" style={{ marginTop: ".5rem" }}>Only {day.slots.length} of {wantedMeals(mealsPerDay).length} meals could be filled with your current filters. Relax the diet, avoid list or cooking time to get more options.</div>}
                 {isToday && <button type="button" className="btn ghost sm" onClick={replanToday} style={{ marginTop: ".5rem" }}><RefreshCw size={14} aria-hidden /> Re-plan today from what I've eaten</button>}
 
