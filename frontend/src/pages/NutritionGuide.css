@@ -1,0 +1,37 @@
+/* Nutrition Guide page. Colours adapt to light or dark themes. */
+.ng-note { display: flex; gap: .6rem; align-items: flex-start; padding: .75rem 1rem; border-radius: 14px; margin-bottom: 1rem; font-size: .93rem;
+  background: color-mix(in srgb, #d29a2b 16%, transparent); border: 1px solid color-mix(in srgb, #d29a2b 40%, transparent); }
+.ng-note svg { flex: none; margin-top: .15rem; }
+.ng-search { position: relative; margin-bottom: .75rem; }
+.ng-search svg { position: absolute; left: .75rem; top: 50%; transform: translateY(-50%); opacity: .6; pointer-events: none; }
+.ng-search input { padding-left: 2.4rem; }
+.ng-tabs { display: flex; gap: .4rem; overflow-x: auto; padding-bottom: .4rem; margin-bottom: .75rem; }
+.ng-tab { flex: none; background: transparent; color: inherit; font: inherit; font-size: .92rem; cursor: pointer; padding: .45rem .95rem; border-radius: 99px;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent); white-space: nowrap; }
+.ng-tab:hover { background: color-mix(in srgb, #2f8f5b 14%, transparent); }
+.ng-tab.on { background: #2f8f5b; border-color: #2f8f5b; color: #fff; }
+.ng-intro { margin: 0 0 1rem; opacity: .8; }
+.ng-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 1rem; align-items: start; }
+.ng-card h3 { margin: 0 0 .35rem; font-size: 1.08rem; }
+.ng-card .summary { margin: 0 0 .6rem; opacity: .9; }
+.ng-card ul { margin: .25rem 0 .75rem; padding-left: 1.15rem; }
+.ng-card li { margin-bottom: .4rem; }
+.ng-badges { display: flex; gap: .3rem; flex-wrap: wrap; margin-bottom: .6rem; }
+.ng-badge { font-size: .7rem; padding: .1rem .55rem; border-radius: 99px; background: color-mix(in srgb, #2f8f5b 20%, transparent); }
+.ng-badge.gen { background: color-mix(in srgb, currentColor 12%, transparent); }
+.ng-badge.sec { background: color-mix(in srgb, #5b7fb5 25%, transparent); }
+.ng-box { font-size: .9rem; padding: .6rem .8rem; border-radius: 10px; margin-top: .5rem; }
+.ng-box.limit { background: color-mix(in srgb, #c9473a 13%, transparent); }
+.ng-box.ask { background: color-mix(in srgb, #5b7fb5 16%, transparent); }
+.ng-box b { display: block; margin-bottom: .15rem; }
+.ng-box ul { margin: .15rem 0 0; }
+.ng-calc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 1rem; align-items: start; }
+@media (max-width: 800px) { .ng-calc { grid-template-columns: 1fr; } }
+.ng-calc .field { margin-bottom: .75rem; }
+.ng-result { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; margin: .5rem 0 1rem; }
+.ng-result div { padding: .6rem .75rem; border-radius: 12px; background: color-mix(in srgb, #2f8f5b 12%, transparent); }
+.ng-result b { display: block; font-size: 1.35rem; font-family: var(--font-head, inherit); }
+.ng-result span { font-size: .8rem; opacity: .75; }
+.ng-sources { margin-top: 1.5rem; font-size: .88rem; opacity: .85; }
+.ng-sources a { color: inherit; }
+.ng-sources li { margin-bottom: .25rem; }

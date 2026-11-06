@@ -7,8 +7,8 @@ import {
   Target,
   UserRound,
   LogOut,
-  BrainCircuit,
   CalendarDays,
+  GraduationCap,
 } from "lucide-react";
 
 import { logout } from "../services/authService";
@@ -18,7 +18,7 @@ const NAV = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard, end: true },
   { to: "/scanner", label: "Scanner", icon: ScanLine },
   { to: "/diary", label: "Diary", icon: BookOpen },
-  { to: "/nutrition-coach", label: "AI Coach", icon: BrainCircuit },
+  { to: "/nutrition-guide", label: "Nutrition Guide", icon: GraduationCap },
   { to: "/planner", label: "Planner", icon: CalendarDays },
   { to: "/alternatives", label: "Alternatives", icon: Leaf },
   { to: "/goals", label: "Goals", icon: Target },

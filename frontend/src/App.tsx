@@ -9,6 +9,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
 import Scanner from "./pages/Scanner";
 import Diary from "./pages/Diary";
+import NutritionGuide from "./pages/NutritionGuide";
 import NutritionCoach from "./pages/NutritionCoach";
 import Planner from "./pages/Planner";
 import Alternatives from "./pages/Alternatives";
@@ -32,6 +33,8 @@ export default function App() {
                 <Route index element={<Dashboard />} />
                 <Route path="scanner" element={<Scanner />} />
                 <Route path="diary" element={<Diary />} />
+                <Route path="nutrition-guide" element={<NutritionGuide />} />
+                {/* Recipe search page. No longer in the sidebar, still reachable by URL. */}
                 <Route path="nutrition-coach" element={<NutritionCoach />} />
                 <Route path="planner" element={<Planner />} />
                 <Route path="alternatives" element={<Alternatives />} />
